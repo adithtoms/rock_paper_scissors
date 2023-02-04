@@ -1,14 +1,16 @@
 let compoint = 0;
 let yourpoint = 0;
-const outdiv=document.querySelector('#outdiv');
 
-const btn1 = document.querySelector('#btn1');
-const btn2 = document.querySelector('#btn2');
+const rock = document.querySelector('#rock');
+const paper= document.querySelector('#paper');
 
-const btn3 = document.querySelector('#btn3');
+const scissor = document.querySelector('#scissor');
 
-const uyourscore=document.querySelector('.uyourscore');
-const ucomscore=document.querySelector('.ucomscore');
+const display = document.querySelector('#dis');
+const gameover= document.querySelector('#game')
+
+const yourscore=document.querySelector('#yourscore');
+const comscore=document.querySelector('#comscore');
 
 const choices = ["rock", "paper", "scissor"]
 
@@ -18,49 +20,55 @@ function getComputerChoice() {
 };
 
 function playRound(playerSelection, computerSelection) {
-    //console.log(playerSelection, computerSelection)
     if ((computerSelection === "paper" && playerSelection === "scissor") || (computerSelection === "rock" && playerSelection === "paper") || (computerSelection === "scissor" && playerSelection === "rock")) {
         yourpoint++;
-        const p=document.createElement('p');
-        p.innerText="you win";
-        outdiv.appendChild(p);
+        display.innerHTML=`<h2 style="color: white;">Your won</h2>`
+
        
 
     } else if (computerSelection === playerSelection) {
-        const p=document.createElement('p');
-        p.innerText="tied";
-        outdiv.appendChild(p);
+        display.innerHTML=`<h2 style="color: white;">Its a tie</h2>`
+  
         
     } else {
         compoint++;
-        const p=document.createElement('p');
-        p.innerText="you lost";
-        outdiv.appendChild(p);
+        display.innerHTML=`<h2 style="color: white;">Computer won</h2>`
+
 
     };
 
 };
 const score=(yourpoint,compoint) => {
     if(yourpoint === 5){
-        const h2=document.createElement('h2');
-        h2.innerText= `you won the game ${yourpoint} to ${compoint}`;
-        outdiv.append(h2);
+       
+        gameover.innerHTML= `<h1 style="color: lightgreen;">You won the game !!</h1>`;
+        setTimeout(() => {
+            document.location.reload();
+          }, 1500);
+      
     }
     if(compoint === 5){
-        const h2=document.createElement('h2');
-        h2.innerText= ` you lost the game ${yourpoint} against ${compoint}`;
-        outdiv.append(h2);
+        
+        gameover.innerHTML= `<h1 style="color: red;"> You lost the game !!</h1>`;
+       
+        setTimeout(() => {
+            document.location.reload();
+          }, 1500);
     }
 }
  const updatescore=(yourpoint,compoint)=>{
-    uyourscore.innerText= `Your Point: ${yourpoint}`;
-    ucomscore.innerText=`Computer Point: ${compoint}`;
+    let yourpoint1=yourpoint;
+    let compoint1=compoint;
+    yourscore.innerHTML= `<span style="color: rgb(201, 134, 10)"> ${yourpoint1}</span>`;
+    comscore.innerHTML=`<span style="color: rgb(201, 134, 10);"> ${compoint1}</span>`;
  }
 
+ 
 
 
 
-btn1.addEventListener('click', () => { 
+
+rock.addEventListener('click', () => { 
     const computerSelection = getComputerChoice();
         const playerSelection = "rock"; 
     playRound(playerSelection, computerSelection)
@@ -70,7 +78,7 @@ btn1.addEventListener('click', () => {
    
 
 
-btn2.addEventListener('click',  () => { 
+paper.addEventListener('click',  () => { 
     const computerSelection = getComputerChoice();
         const playerSelection = "paper"; 
     playRound(playerSelection, computerSelection)
@@ -79,7 +87,7 @@ btn2.addEventListener('click',  () => {
 });
    
 
-btn3.addEventListener('click', () => { 
+scissor.addEventListener('click', () => { 
     
     const computerSelection = getComputerChoice();
         const playerSelection = "scissor"; 
@@ -87,4 +95,4 @@ btn3.addEventListener('click', () => {
     score(yourpoint,compoint);
     updatescore(yourpoint,compoint);
 });
-    
+
